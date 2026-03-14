@@ -1,0 +1,119 @@
+/* 全体 */
+
+body{
+    margin:0;
+    background:#000;
+    color:#fff;
+    font-family:sans-serif;
+    overflow:hidden;
+}
+
+
+/* ヘッダー */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:50px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:5px 10px;
+
+    background:rgba(0,0,0,0.6);
+    z-index:10;
+}
+
+
+/* 楽譜選択 */
+
+#scoreSelect{
+    font-size:16px;
+    padding:5px;
+}
+
+
+/* ボタン */
+
+button{
+    font-size:18px;
+    padding:5px 12px;
+
+    background:#222;
+    color:#fff;
+    border:1px solid #444;
+    border-radius:6px;
+}
+
+button:hover{
+    background:#444;
+}
+
+
+/* PDFキャンバス */
+
+#pdfCanvas{
+    display:block;
+
+    margin-top:50px;
+
+    width:100vw;
+    height:auto;
+
+    background:#111;
+}
+
+
+/* カメラ映像 */
+
+#camera{
+
+    position:fixed;
+
+    right:10px;
+    bottom:10px;
+
+    width:120px;
+    height:auto;
+
+    border-radius:10px;
+
+    opacity:0.6;
+
+    border:2px solid #444;
+
+}
+
+
+/* 状態表示 */
+
+#status{
+
+    position:fixed;
+
+    left:10px;
+    bottom:10px;
+
+    font-size:14px;
+
+    color:#0f0;
+
+}
+
+
+/* iPad横画面対応 */
+
+@media (orientation:landscape){
+
+    #pdfCanvas{
+        height:calc(100vh - 50px);
+        width:auto;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+}
