@@ -82,13 +82,17 @@ let lastTurn = 0;
 
 function onResults(results){
 
-if(!results.multiFaceLandmarks) return;
+if(!results.multiFaceLandmarks){
+status.innerText = "face not detected";
+return;
+}
 
 const landmarks = results.multiFaceLandmarks[0];
-
-const nose = landmarks[1]; // 鼻
+const nose = landmarks[1];
 
 const x = nose.x;
+
+status.innerText = "face position: " + x.toFixed(2);
 
 const now = Date.now();
 
