@@ -17,6 +17,7 @@ const url = "pdf/score.pdf";
 
 status.innerText = "Loading PDF...";
 
+
 // --------------------
 // PDF読み込み
 // --------------------
@@ -53,8 +54,8 @@ canvas.width = viewport.width;
 
 page.render({
 
-canvasContext:ctx,
-viewport:viewport
+canvasContext: ctx,
+viewport: viewport
 
 });
 
@@ -77,6 +78,7 @@ return;
 }
 
 pageNum++;
+
 renderPage(pageNum);
 
 }
@@ -91,6 +93,7 @@ return;
 }
 
 pageNum--;
+
 renderPage(pageNum);
 
 }
@@ -140,10 +143,14 @@ const nose = landmarks[1];
 // カメラ左右反転補正
 let x = 1 - nose.x;
 
+
+// --------------------
 // デバッグ表示
+// --------------------
+
 status.innerText =
-"X:" + x.toFixed(2) +
-" Page:" + pageNum;
+"Face X : " + x.toFixed(2) +
+"  Page : " + pageNum;
 
 let now = Date.now();
 
@@ -162,6 +169,7 @@ lastTurn = now;
 
 }
 
+
 // --------------------
 // 右を見る → 次ページ
 // --------------------
@@ -173,6 +181,9 @@ nextPage();
 lastTurn = now;
 
 }
+
+}
+
 
 // --------------------
 // MediaPipe設定
