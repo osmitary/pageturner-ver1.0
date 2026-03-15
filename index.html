@@ -1,35 +1,33 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Face Score Viewer</title>
 
-<title>Score Turner</title>
-
-<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="css/style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-
-<!-- Face detection -->
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 
 </head>
 
 <body>
 
-<div id="viewer">
+<h2>Face Score Viewer</h2>
+
+<div id="status">Loading...</div>
+
 <canvas id="pdfCanvas"></canvas>
-</div>
 
 <video id="video" autoplay playsinline style="display:none"></video>
 
-<div id="status">Loading...</div>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
 <script src="js/script.js"></script>
 
 </body>
+
 </html>
