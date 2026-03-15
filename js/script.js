@@ -1,5 +1,5 @@
 // -----------------------------
-// PDF.js Worker設定
+// PDF.js Worker
 // -----------------------------
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -7,7 +7,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 
 
 // -----------------------------
-// HTML要素取得
+// HTML取得
 // -----------------------------
 
 const status = document.getElementById("status");
@@ -25,7 +25,7 @@ let pageNum = 1;
 
 const url = "pdf/score.pdf";
 
-status.innerText = "loading PDF...";
+status.innerText = "Loading PDF...";
 
 
 // -----------------------------
@@ -44,9 +44,7 @@ renderPage(pageNum);
 }).catch(function(error){
 
 status.innerText =
-"PDF load error: " + error.message;
-
-console.error(error);
+"PDF error: " + error.message;
 
 });
 
@@ -69,9 +67,6 @@ canvasContext: ctx,
 viewport: viewport
 });
 
-status.innerText =
-"Page " + num + " / " + pdfDoc.numPages;
-
 });
 
 }
@@ -83,11 +78,15 @@ status.innerText =
 
 function nextPage(){
 
-if(pageNum >= pdfDoc.numPages) return;
+if(pageNum >= pdfDoc.numPages){
+
+status.innerText = "LAST PAGE";
+
+return;
+
+}
 
 pageNum++;
-
-status.innerText = "NEXT PAGE";
 
 renderPage(pageNum);
 
@@ -95,11 +94,15 @@ renderPage(pageNum);
 
 function prevPage(){
 
-if(pageNum <= 1) return;
+if(pageNum <= 1){
+
+status.innerText = "FIRST PAGE";
+
+return;
+
+}
 
 pageNum--;
-
-status.innerText = "PREVIOUS PAGE";
 
 renderPage(pageNum);
 
@@ -107,7 +110,7 @@ renderPage(pageNum);
 
 
 // -----------------------------
-// キーボード操作（テスト用）
+// キーボードテスト
 // -----------------------------
 
 document.addEventListener("keydown",function(e){
@@ -122,8 +125,6 @@ if(e.key === "ArrowLeft") prevPage();
 // カメラ起動
 // -----------------------------
 
-status.innerText = "starting camera...";
-
 navigator.mediaDevices.getUserMedia({
 
 video:true
@@ -132,12 +133,12 @@ video:true
 
 video.srcObject = stream;
 
-status.innerText = "camera started";
+status.innerText = "Camera started";
 
 }).catch(function(err){
 
 status.innerText =
-"camera error: " + err.message;
+"Camera error: " + err.message;
 
 });
 
@@ -150,76 +151,74 @@ let lastTurn = 0;
 
 function onResults(results){
 
-// 顔検出なし
-
 if(!results.multiFaceLandmarks){
 
-status.innerText = "face not detected";
+status.innerText = "Face not detected";
 
 return;
 
 }
 
-// 顔ランドマーク取得
-
 const landmarks = results.multiFaceLandmarks[0];
-
-// 鼻の位置
 
 const nose = landmarks[1];
 
-const x = nose.x;
+// -----------------------------
+// 左右反転補正
+// -----------------------------
 
+const rawX = nose.x;
+const x = 1 - rawX;
+
+
+// -----------------------------
 // デバッグ表示
+// -----------------------------
 
 status.innerText =
-"face position: " + x.toFixed(2);
+"Face X: " + x.toFixed(2) +
+" Page:" + pageNum;
 
 
-// 誤作動防止タイマー
+// -----------------------------
+// 誤作動防止
+// -----------------------------
 
 const now = Date.now();
 
-if(now - lastTurn < 1500) return;
+if(now - lastTurn < 1200) return;
 
 
-// 右向き（前ページ）
+// -----------------------------
+// 左を見る → 次ページ
+// -----------------------------
 
-if(x > 0.35){
+if(x < 0.35){
 
-if(pageNum > 1){
-
-status.innerText = "RIGHT → PREVIOUS PAGE";
-
-prevPage();
-
-}else{
-
-status.innerText = "FIRST PAGE";
-
-}
-
-lastTurn = now;
-
-}
-
-// 左向き（次ページ）
-
-if(x < 0.65){
-
-if(pageNum < pdfDoc.numPages){
-
-status.innerText = "LEFT → NEXT PAGE";
+status.innerText =
+"LEFT DETECTED → NEXT PAGE";
 
 nextPage();
 
-}else{
-
-status.innerText = "LAST PAGE";
+lastTurn = now;
 
 }
 
+
+// -----------------------------
+// 右を見る → 前ページ
+// -----------------------------
+
+if(x > 0.65){
+
+status.innerText =
+"RIGHT DETECTED → PREV PAGE";
+
+prevPage();
+
 lastTurn = now;
+
+}
 
 }
 
