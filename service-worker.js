@@ -10,26 +10,38 @@ const FILES=[
 "/js/faceController.js",
 "/scores/sample.pdf"
 
-]
+const CACHE_NAME = "score-turner-v1";
 
-self.addEventListener("install",e=>{
+const urlsToCache = [
+"./",
+"index.html",
+"css/style.css",
+"js/script.js",
+"pdf/score.pdf"
+];
 
-e.waitUntil(
+self.addEventListener("install",event=>{
 
-caches.open(CACHE)
-.then(c=>c.addAll(FILES))
+event.waitUntil(
 
-)
-
+caches.open(CACHE_NAME)
+.then(cache=>{
+return cache.addAll(urlsToCache);
 })
 
-self.addEventListener("fetch",e=>{
+);
 
-e.respondWith(
+});
 
-caches.match(e.request)
-.then(r=>r || fetch(e.request))
+self.addEventListener("fetch",event=>{
 
-)
+event.respondWith(
 
+caches.match(event.request)
+.then(response=>{
+return response || fetch(event.request);
 })
+
+);
+
+});
