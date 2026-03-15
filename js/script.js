@@ -17,7 +17,6 @@ const url = "pdf/score.pdf";
 
 status.innerText = "Loading PDF...";
 
-
 // --------------------
 // PDF読み込み
 // --------------------
@@ -54,8 +53,8 @@ canvas.width = viewport.width;
 
 page.render({
 
-canvasContext: ctx,
-viewport: viewport
+canvasContext:ctx,
+viewport:viewport
 
 });
 
@@ -78,7 +77,6 @@ return;
 }
 
 pageNum++;
-
 renderPage(pageNum);
 
 }
@@ -93,7 +91,6 @@ return;
 }
 
 pageNum--;
-
 renderPage(pageNum);
 
 }
@@ -143,14 +140,10 @@ const nose = landmarks[1];
 // カメラ左右反転補正
 let x = 1 - nose.x;
 
-
-// --------------------
 // デバッグ表示
-// --------------------
-
 status.innerText =
-"Face X : " + x.toFixed(2) +
-"  Page : " + pageNum;
+"X:" + x.toFixed(2) +
+" Page:" + pageNum;
 
 let now = Date.now();
 
@@ -158,25 +151,24 @@ if(now - lastTurn < 1200) return;
 
 
 // --------------------
-// 左を見る → 前ページ
+// 左を見る → 次ページ
 // --------------------
 
 if(x < 0.35){
 
-prevPage();
+nextPage();
 
 lastTurn = now;
 
 }
 
-
 // --------------------
-// 右を見る → 次ページ
+// 右を見る → 前ページ
 // --------------------
 
 if(x > 0.65){
 
-nextPage();
+prevPage();
 
 lastTurn = now;
 
