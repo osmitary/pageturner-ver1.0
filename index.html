@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Score Turner</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_detection"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<button id="prevBtn">◀</button>
+
+<select id="scoreSelect">
+<option value="scores/sample.pdf">
+Sample Score
+</option>
+</select>
+
+<button id="nextBtn">▶</button>
+
+</header>
+
+<canvas id="pdfCanvas"></canvas>
+
+<video id="camera" autoplay muted></video>
+
+<div id="status">loading...</div>
+
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>

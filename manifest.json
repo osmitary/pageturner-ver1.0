@@ -1,0 +1,21 @@
+{
+"name":"Score Turner",
+"short_name":"Score",
+"display":"standalone",
+"start_url":"./",
+"background_color":"black",
+"theme_color":"black",
+"orientation":"landscape",
+"icons":[
+{
+"src":"icons/icon-192.png",
+"sizes":"192x192",
+"type":"image/png"
+},
+{
+"src":"icons/icon-512.png",
+"sizes":"512x512",
+"type":"image/png"
+}
+]
+}
