@@ -185,7 +185,7 @@ if(now - lastTurn < 1500) return;
 
 // 右向き（前ページ）
 
-if(x > 0.65){
+if(x > 0.35){
 
 if(pageNum > 1){
 
@@ -205,7 +205,7 @@ lastTurn = now;
 
 // 左向き（次ページ）
 
-if(x < 0.35){
+if(x < 0.65){
 
 if(pageNum < pdfDoc.numPages){
 
